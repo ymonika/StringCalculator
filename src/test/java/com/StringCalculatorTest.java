@@ -1,16 +1,17 @@
 package com;
 
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringCalculatorTest {
 
     @Test
     public void testEmptyString() {
-        StringCalculator stringCalculator = new StringCalculator();
-        assertEquals(0, stringCalculator.add(""));
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(0, calculator.add(""));
     }
 
     @Test
@@ -22,16 +23,24 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void testNewLineInputWithNumbers(){
+    public void testNewLineInputWithNumbers() {
         StringCalculator calculator = new StringCalculator();
         assertEquals(6, calculator.add("1\n2,3"));
         assertEquals(1, calculator.add("1, \n"));
     }
 
     @Test
-    public void testChangeInDelimiterNewLineInputWithNumbers(){
+    public void testChangeInDelimiterNewLineInputWithNumbers() {
         StringCalculator calculator = new StringCalculator();
         assertEquals(3, calculator.add("//;\n1;2"));
     }
+
+    @Test
+    public void testNegativeNumbersInput() {
+        StringCalculator calculator = new StringCalculator();
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> calculator.add("-1,-2,3,-5"));
+        assertEquals("negative numbers not allowed [-1, -2, -5]", exception.getMessage());
+    }
+
 
 }
