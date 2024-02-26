@@ -20,4 +20,11 @@ public class StringCalculatorTest {
         assertEquals(6, calculator.add("1,5"));
         assertEquals(0, calculator.add(""));
     }
+
+    @Test
+    public void testNewLineInputWithNumbers(){
+        StringCalculator calculator = new StringCalculator();
+        assertEquals(6, calculator.add("1\n2,3"));
+        assertEquals(1, calculator.add("1, \n"));
+    }
 }
